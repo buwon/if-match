@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./dist/cache.tsbuildinfo",
+  },
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}
