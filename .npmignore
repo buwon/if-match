@@ -1,10 +1,9 @@
 .eslintignore
-.eslintrc
+.eslintrc.js
 .gitattributes
 .gitignore
 .npmignore
 package-lock.json
-README.md
 tsconfig.build.json
 tsconfig.json
 *.tsbuildinfo
