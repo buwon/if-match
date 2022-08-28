@@ -29,7 +29,7 @@ it('primitive when defulat null result', () => {
 })
 
 it('primitive string when primitive result', () => {
-  assert.is(match('hello').when('hello', true).exhaustive(), true)
+  assert.is(match<string, boolean>('hello').when('hello', true).exhaustive(), true)
   assert.is(match('hello').when('hello', true).run(), true)
   assert.is(match('hello').when('world', false).otherwise(true), true)
 })

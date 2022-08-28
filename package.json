@@ -1,6 +1,6 @@
 {
   "name": "if-match",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Allows if-else to be used as a lambdba expression.",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",

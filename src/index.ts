@@ -5,6 +5,10 @@ interface predicateFunc<T> {
   (value: T): boolean
 }
 
+interface handlerFunc<T, output = any> {
+  (value: T): output
+}
+
 function matchPattern(value, target) {
   if (isFunction(target)) {
     return target(value)
@@ -35,16 +39,16 @@ function checkTypeMatch(value, target) {
   return matchPattern(value, target)
 }
 
-class MatchExpression<T> {
+class MatchExpression<T, output = any> {
   matched = false
   value: T
-  result = null
+  result: output = null
 
   constructor(value: T) {
     this.value = value
   }
 
-  when(predicate: Partial<T> | predicateFunc<T>, handler) {
+  when(predicate: Partial<T> | predicateFunc<T>, handler: output | handlerFunc<T, output>) {
     if (this.matched) {
       return this
     }
@@ -57,7 +61,7 @@ class MatchExpression<T> {
     return this
   }
 
-  otherwise(handler) {
+  otherwise(handler: output | handlerFunc<T, output>): output {
     if (this.matched) {
       return this.result
     }
@@ -65,17 +69,17 @@ class MatchExpression<T> {
     return isFunction(handler) ? handler(this.value) : handler
   }
 
-  exhaustive() {
+  exhaustive(): output {
     return this.result
   }
 
-  run() {
+  run(): output {
     return this.result
   }
 }
 
-export function match<input>(value: input) {
-  return new MatchExpression(value)
+export function match<input, output = any>(value: input) {
+  return new MatchExpression<input, output>(value)
 }
 
 export default match
