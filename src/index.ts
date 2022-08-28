@@ -1,16 +1,9 @@
 import _ from 'lodash'
 const { isArray, isFunction, isMatch, isObject } = _
-// import { isArray, isFunction, isMatch, isObject } from 'lodash-es'
-// import isArray from 'lodash/isArray'
-// import isFunction from 'lodash/isFunction'
-// import isMatch from 'lodash/isMatch'
-// import isObject from 'lodash/isObject'
 
 interface predicateFunc<T> {
   (value: T): boolean
 }
-
-type predicateType<T> = T | predicateFunc<T>
 
 function matchPattern(value, target) {
   if (isFunction(target)) {
@@ -25,8 +18,8 @@ function matchPattern(value, target) {
 }
 
 function arrayMatchPattern(value, target) {
-  for (const index in value) {
-    if (false === matchPattern(value[index], target[index])) {
+  for (const index in target) {
+    if (undefined !== target[index] && false === matchPattern(value[index], target[index])) {
       return false
     }
   }
@@ -36,7 +29,7 @@ function arrayMatchPattern(value, target) {
 
 function checkTypeMatch(value, target) {
   if (isArray(value) && isArray(target)) {
-    return value.length === target.length ? arrayMatchPattern(value, target) : false
+    return arrayMatchPattern(value, target)
   }
 
   return matchPattern(value, target)
@@ -51,7 +44,7 @@ class MatchExpression<T> {
     this.value = value
   }
 
-  when(predicate: predicateType<T>, handler) {
+  when(predicate: Partial<T> | predicateFunc<T>, handler) {
     if (this.matched) {
       return this
     }
