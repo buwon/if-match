@@ -4,25 +4,23 @@
 A simple if-else improvement library. Inspired by the <a href="https://www.npmjs.com/package/ts-pattern">ts-pattern</a> module
 </p>
 
-
 ```ts
-import { match } from 'if-pattern'
+import { match } from 'if-match';
 
 // as is
-let gameName = ''
+let gameName = '';
 if (game.genre === 'rpg') {
   if (game.company === 'enix') {
     gameName = 'dq1';
   } else if (game.company === 'nintendo') {
-    gameName =  'pokemon';
+    gameName = 'pokemon';
   }
-  gameName =  'ff1';
+  gameName = 'ff1';
 } else if (game.genre === 'simulation') {
   if (game.company === 'maxis') {
-    gameName =  'simcity';
+    gameName = 'simcity';
   }
 }
-
 
 // as is
 const gameName2 = (() => {
@@ -42,22 +40,23 @@ const gameName2 = (() => {
   return '';
 })();
 
-
 // to be
 const gameName3 = match(game)
   .when({ genre: 'rpg', company: 'enix' }, 'dq1')
   .when({ genre: 'rpg', company: 'nintendo' }, 'pokemon')
   .when({ genre: 'rpg' }, 'ff1')
   .when({ genre: 'simulation', company: 'maxis' }, 'simcity')
-  .otherwise('simcity')
+  .otherwise('simcity');
 ```
 
 ## About
+
 Complicated conditions have been combined into one compact expression.
 Your code becomes **shorter** and **more readable**. Exhaustiveness checking ensures you haven’t forgotten **any possible case**.
 You can only use **const** without using **let**.
 
 ## Features
+
 - It works at high speed without complicated and unnecessary processing.
 - Extend functionality using functions
 
@@ -69,14 +68,13 @@ Via npm
 npm install if-match
 ```
 
-Via yarn
+Via deno
 
-```shell
-yarn add if-match
+```ts
+import { match } from 'https://deno.land/x/if_match/mod.ts';
 ```
 
 # Documentation
-
 
 - [Getting Started](#getting-started)
 - [API Reference](#api-reference)
@@ -92,7 +90,7 @@ yarn add if-match
 ### `match`
 
 ```ts
-match(value)
+match(value);
 ```
 
 Create a `Match` object on which you can later call `.when`, `.otherwise`, `.exhaustive` and `.run`.
@@ -100,9 +98,9 @@ Create a `Match` object on which you can later call `.when`, `.otherwise`, `.exh
 #### Example
 
 ```ts
-match(3).run()
-match([1, 2, 3]).run()
-match({ hello: 'world' }).run()
+match(3).run();
+match([1, 2, 3]).run();
+match({ hello: 'world' }).run();
 ```
 
 #### Arguments
@@ -122,18 +120,16 @@ match(...)
 
 ```ts
 // return 4
-match(3).when(3, 4).run()
-match(3).when(3, (v) => v + 1).run() 
-
+match(3).when(3, 4).run();
+match(3).when(3, (v) => v + 1).run();
 
 // return 3
-match([1, 2, 3]).when([1, 2, 3], 3).run() 
-match([1, 2, 3]).when([1, 2, 3], (v) => v.length).run()
-
+match([1, 2, 3]).when([1, 2, 3], 3).run();
+match([1, 2, 3]).when([1, 2, 3], (v) => v.length).run();
 
 // return true
-match({ hello: 'world' }).when({ hello: 'world' }, true).run() 
-match({ hello: 'world' }).when((v) => (v.hello === 'world'), true).run()
+match({ hello: 'world' }).when({ hello: 'world' }, true).run();
+match({ hello: 'world' }).when((v) => (v.hello === 'world'), true).run();
 ```
 
 #### Arguments
@@ -155,13 +151,12 @@ match(...)
 
 Equivalent to `else`. If no `.when()` is matched, `.otherwise()` is called.
 
-
 #### Example
 
 ```ts
-match(1).otherwise('Hello World') // return 'Hello World'
-match(1).otherwise(() => true) // return true
-match(1).otherwise((v) => v + 1) // return 2
+match(1).otherwise('Hello World'); // return 'Hello World'
+match(1).otherwise(() => true); // return true
+match(1).otherwise((v) => v + 1); // return 2
 ```
 
 #### Arguments
@@ -185,8 +180,8 @@ Returns null if it does not match any '.when()'.
 #### Example
 
 ```ts
-match(1).exhaustive() // return null
-match(1).when(1, true).exhaustive() // return true
+match(1).exhaustive(); // return null
+match(1).when(1, true).exhaustive(); // return true
 ```
 
 #### Arguments
@@ -203,12 +198,11 @@ match(...)
 
 Equivalent to `.exhaustive`.
 
-
 #### Example
 
 ```ts
-match(1).run() // return null
-match(1).when(1, true).run() // return true
+match(1).run(); // return null
+match(1).when(1, true).run(); // return true
 ```
 
 #### Arguments

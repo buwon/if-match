@@ -1,0 +1,20 @@
+{
+  "deno.enable": true,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "source.js punctuation.terminator",
+          "source.jsx punctuation.terminator",
+          "source.ts punctuation.terminator",
+          "source.tsx punctuation.terminator"
+        ],
+        "settings": {
+          "foreground": "#ffffff00" // dark mode
+          // "foreground": "#745c5c30" // light mode
+        }
+      }
+    ]
+  }
+}
